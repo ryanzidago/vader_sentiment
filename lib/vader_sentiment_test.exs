@@ -29,4 +29,19 @@ defmodule VaderSentimentTest do
       refute VaderSentiment.allcap_differential(["WORK", "HARD"])
     end
   end
+
+  describe "scalar_inc_dec/3" do
+    # random examples obtanained by calling the scalar_inc_dec function from the Python library
+    # => 0.293 # scalar_inc_dec("absolutely", 0.8, True)
+    # => -0.293 # scalar_inc_dec("slightly", 0.6, False)
+    # => 0.0 # scalar_inc_dec("great", 0.0, True)
+    test "increases or decreases the scalar score for words contained in @booster_dict; while obtaining the same results as the original Python library" do
+      assert 0.293 == VaderSentiment.scalar_inc_dec("absolutely", 0.8, true)
+      assert -0.293 == VaderSentiment.scalar_inc_dec("slightly", 0.6, false)
+    end
+
+    test "returns `0` for words not in @booster_dict; while obtaining the same results as the original Python library" do
+      assert 0 == VaderSentiment.scalar_inc_dec("great", 0.9, true)
+    end
+  end
 end
