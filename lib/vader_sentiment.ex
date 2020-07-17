@@ -203,11 +203,11 @@ defmodule VaderSentiment do
     Enum.map(words, &String.downcase/1)
   end
 
-  def input_words_in_negate?(input_words) do
+  defp input_words_in_negate?(input_words) do
     true in Enum.map(input_words, fn input_word -> input_word in @negate end)
   end
 
-  def input_words_contains_nt?(input_words) do
+  defp input_words_contains_nt?(input_words) do
     true in Enum.map(input_words, fn input_word -> String.contains?(input_word, "n't") end)
   end
 
