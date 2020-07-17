@@ -173,7 +173,7 @@ defmodule VaderSentiment do
     "under the weather" => -2
   }
 
-  @special_Cases %{
+  @special_cases %{
     "the shit" => 3,
     "the bomb" => 3,
     "bad ass" => 1.5,
