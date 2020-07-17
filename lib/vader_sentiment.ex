@@ -186,21 +186,29 @@ defmodule VaderSentiment do
     "broken heart" => -2.9
   }
 
-  def negated(input_words, include_nt \\ true) do
-    input_words = for word <- input_words, do: String.downcase(word)
-    neg_words = @negate
+  def negated(input_words, include_nt)
 
-    for word <- neg_words do
-      if word in input_words, do: true
-    end
+  def negated(input_words, true) do
+    input_words = downcase_words(input_words)
+    input_words_in_negate?(input_words) || input_words_contains_nt?(input_words)
+  end
 
-    if include_nt do
-      for word <- input_words do
-        String.contains?(word, "n't")
-      end
-    else
-      false
-    end
+  def negated(input_words, false) do
+    input_words
+    |> downcase_words()
+    |> input_words_in_negate?()
+  end
+
+  defp downcase_words(words) do
+    Enum.map(words, &String.downcase/1)
+  end
+
+  def input_words_in_negate?(input_words) do
+    true in Enum.map(input_words, fn input_word -> input_word in @negate end)
+  end
+
+  def input_words_contains_nt?(input_words) do
+    true in Enum.map(input_words, fn input_word -> String.contains?(input_word, "n't") end)
   end
 
   def normalize(score, alpha \\ 15) do
