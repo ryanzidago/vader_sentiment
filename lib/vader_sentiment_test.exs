@@ -59,6 +59,18 @@ defmodule VaderSentiment.SentiTextTest do
   use ExUnit.Case
   alias VaderSentiment.SentiText
 
+  describe "strip_punc_if_word/1" do
+    test "removes all trailing and leading punctuation" do
+      assert "yes" == SentiText.strip_punc_if_word("yes!")
+      assert "okay" == SentiText.strip_punc_if_word("...okay")
+    end
+
+    test "if the resulting string has two or fewer characters, then it was likely an emoticon, so return the original string" do
+      assert ":D" == SentiText.strip_punc_if_word(":D")
+      assert ":)" == SentiText.strip_punc_if_word(":)")
+    end
+  end
+
   describe "words_and_emoticons/1" do
     test "removes leading and trailing punctuation; leaves contractions and most emoticons. Does not preserve punc-plus-letter emoticons (e.g. :D)" do
       assert ~w(hello world) == SentiText.words_and_emoticons("hello, world!")
