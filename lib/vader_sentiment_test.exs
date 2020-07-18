@@ -16,6 +16,15 @@ defmodule VaderSentimentTest do
     end
   end
 
+  describe "normalize/2" do
+    # random examples obtained by calling the normalize function from the original Python library
+    test "returns the same results as in the original Python library" do
+      assert 0.6882472016116852 == VaderSentiment.normalize(3, 10)
+      assert 0.5547001962252291 == VaderSentiment.normalize(2, 9)
+      assert 0.875 == VaderSentiment.normalize(7, 15)
+    end
+  end
+
   describe "allcap_differential/1" do
     test "returns `true` if a word is upcased while another is downcased" do
       assert VaderSentiment.allcap_differential(["Biking", "is", "AWESOME"])
@@ -31,7 +40,7 @@ defmodule VaderSentimentTest do
   end
 
   describe "scalar_inc_dec/3" do
-    # random examples obtanained by calling the scalar_inc_dec function from the Python library
+    # random examples obtanained by calling the scalar_inc_dec function from the original Python library
     # => 0.293 # scalar_inc_dec("absolutely", 0.8, True)
     # => -0.293 # scalar_inc_dec("slightly", 0.6, False)
     # => 0.0 # scalar_inc_dec("great", 0.0, True)
