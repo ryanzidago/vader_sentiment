@@ -264,4 +264,31 @@ defmodule VaderSentiment do
         scalar
     end
   end
+
+  defmodule SentiText do
+    @punctuation ~r/[^a-z0-9 ]+/
+
+    def is_cap_diff(text) do
+      text
+      |> words_and_emoticons()
+      |> VaderSentiment.allcap_differential()
+    end
+
+    def strip_punc_if_word(token) do
+      stripped_token = String.replace(token, @punctuation, "")
+
+      if String.length(stripped_token) <= 2 do
+        token
+      else
+        stripped_token
+      end
+    end
+
+    def words_and_emoticons(text) do
+      text
+      |> String.split()
+      |> Stream.map(&strip_punc_if_word/1)
+      |> Enum.to_list()
+    end
+  end
 end
