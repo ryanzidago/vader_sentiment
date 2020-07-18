@@ -217,7 +217,7 @@ defmodule VaderSentiment do
     cond do
       norm_score < -1.0 -> -1.0
       norm_score > 1.0 -> 1.0
-      true -> 1.0
+      true -> norm_score
     end
   end
 
