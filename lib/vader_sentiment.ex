@@ -215,8 +215,8 @@ defmodule VaderSentiment do
     norm_score = score / :math.sqrt(score * score + alpha)
 
     cond do
-      norm_score < -1.0 -> -1.0
-      norm_score > 1.0 -> 1.0
+      norm_score <= -1.0 -> -1.0
+      norm_score >= 1.0 -> 1.0
       true -> norm_score
     end
   end
