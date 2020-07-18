@@ -291,4 +291,14 @@ defmodule VaderSentiment do
       |> Enum.to_list()
     end
   end
+
+  defmodule SentimentIntensityAnalyzer do
+    def lexicon_full_filepath do
+      File.cwd!() <> "/lib/vader_lexicon.txt"
+    end
+
+    def emoji_full_path do
+      File.cwd!() <> "lib/emoji_utf8_lexicon.txt"
+    end
+  end
 end
