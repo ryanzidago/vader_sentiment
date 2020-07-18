@@ -54,3 +54,17 @@ defmodule VaderSentimentTest do
     end
   end
 end
+
+defmodule VaderSentiment.SentiTextTest do
+  use ExUnit.Case
+  alias VaderSentiment.SentiText
+
+  describe "words_and_emoticons/1" do
+    test "removes leading and trailing punctuation; leaves contractions and most emoticons. Does not preserve punc-plus-letter emoticons (e.g. :D)" do
+      assert ~w(hello world) == SentiText.words_and_emoticons("hello, world!")
+
+      assert ~w(The continental breakfast could be better) ==
+               SentiText.words_and_emoticons("The continental breakfast could be better...")
+    end
+  end
+end
