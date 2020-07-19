@@ -298,7 +298,7 @@ defmodule VaderSentiment do
     end
 
     def emoji_full_path do
-      File.cwd!() <> "lib/emoji_utf8_lexicon.txt"
+      File.cwd!() <> "/lib/emoji_utf8_lexicon.txt"
     end
 
     def make_lex_map do
@@ -316,6 +316,18 @@ defmodule VaderSentiment do
 
     defp do_make_lex_map(file) do
       for [token, measure, _, _] = _line <- file, into: %{}, do: {token, measure}
+    end
+
+    def make_emoji_map do
+      emoji_full_path()
+      |> parse_lexicon()
+      |> do_make_emoji_map()
+    end
+
+    defp do_make_emoji_map(file) do
+      require IEx
+      IEx.pry()
+      for [emoji, description] = _line <- file, into: %{}, do: {emoji, description}
     end
   end
 end
