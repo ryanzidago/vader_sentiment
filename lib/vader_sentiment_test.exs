@@ -3,7 +3,7 @@ defmodule VaderSentimentTest do
   doctest VaderSentiment
 
   describe "negated/2" do
-    test "detects words in @negate" do
+    test "detects words that are negated" do
       assert VaderSentiment.negated(["cant", "do", "that"], false)
     end
 
@@ -11,7 +11,7 @@ defmodule VaderSentimentTest do
       assert VaderSentiment.negated(["can't", "do", "that"], true)
     end
 
-    test "returns `false` if not words is a form of negation" do
+    test "returns `false` if no words is a form of negation" do
       refute VaderSentiment.negated(["hello", "world"], true)
     end
   end
