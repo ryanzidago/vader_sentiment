@@ -325,8 +325,6 @@ defmodule VaderSentiment do
     end
 
     defp do_make_emoji_map(file) do
-      require IEx
-      IEx.pry()
       for [emoji, description] = _line <- file, into: %{}, do: {emoji, description}
     end
   end
