@@ -303,10 +303,15 @@ defmodule VaderSentiment do
 
     def make_lex_map do
       lexicon_full_filepath()
+      |> parse_lexicon()
+      |> do_make_lex_map()
+    end
+
+    defp parse_lexicon(path_to_lexicon) do
+      path_to_lexicon
       |> File.read!()
       |> String.split("\n", trim: true)
       |> Enum.map(&String.split(&1, "\t"))
-      |> do_make_lex_map()
     end
 
     defp do_make_lex_map(file) do
